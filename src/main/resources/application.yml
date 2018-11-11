@@ -9,3 +9,9 @@ spring:
             ddl-auto: create
         properties:
             hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+
+# Handlebars view resolver config
+handlebars:
+    cache: false
+    prefix: /WEB-INF/templates
+    suffix: .hbs
