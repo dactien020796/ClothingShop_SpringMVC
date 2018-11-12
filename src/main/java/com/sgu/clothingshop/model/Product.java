@@ -36,6 +36,18 @@ public class Product {
     @Column(name = "price")
     private Long price;
 
+    @Column(name = "image1")
+    private String image1;
+
+    @Column(name = "image2")
+    private String image2;
+
+    @Column(name = "image3")
+    private String image3;
+
+    @Column(name = "image4")
+    private String image4;
+
     @Column(name = "isDeleted")
     private Boolean isDeleted;
 
