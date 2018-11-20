@@ -21,13 +21,16 @@
                                 <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
                                     <div class="facts">
                                         <div class="register">
-                                            <form action="#" method="post">
-                                                <input name="Email" placeholder="Email Address" type="text" required="">
-                                                <input name="Password" placeholder="Password" type="password" required="">
+                                            <!-- Sign In form -->
+                                            <form action="#" method="post" id="signIn">
+                                                <input name="Email" id="customerEmail" placeholder="Email Address" type="text" required="">
+                                                <input name="Password" id="customerPassword" placeholder="Password" type="password" required="">
+                                                <span id="errorSignIn" style="color:red"></span>
                                                 <div class="sign-up">
                                                     <input type="submit" value="Sign in"/>
                                                 </div>
                                             </form>
+                                            <!-- /Sign In form -->
                                         </div>
                                     </div>
                                 </div>
@@ -35,15 +38,21 @@
                                 <div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
                                     <div class="facts">
                                         <div class="register">
-                                            <form action="#" method="post">
-                                                <input placeholder="Name" name="Name" type="text" required="">
-                                                <input placeholder="Email Address" name="Email" type="email" required="">
-                                                <input placeholder="Password" name="Password" type="password" required="">
-                                                <input placeholder="Confirm Password" name="Password" type="password" required="">
+                                            <!-- Register form -->
+                                            <form method="post" id="register">
+                                                <input placeholder="Username" name="Username" type="text" required="" id="username">
+                                                <input placeholder="Email Address" name="Email" type="email" required="" id="email">
+                                                <input placeholder="Password" name="Password" type="password" required="" id="password">
+                                                <input placeholder="Confirm Password" name="Password" type="password" required="" id="confirm-password">
+                                                <input placeholder="Name" name="Name" type="text" required="" id="name" style="margin: 1em 0 0">
+                                                <input placeholder="Phone number" name="Phone" type="text" required="" minlength="10" maxlength="11" id="phone" style="margin: 1em 0 0">
+                                                <input placeholder="Address" name="Address" type="text" required="" id="address" style="margin: 1em 0 0">
+                                                <span id="error" style="color: red"></span>
                                                 <div class="sign-up">
                                                     <input type="submit" value="Create Account"/>
                                                 </div>
                                             </form>
+                                            <!-- /Register form -->
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +92,62 @@
         </div>
     </div>
 </div>
+<script>
+    $('#myModal88').modal('show');
 
+    $(function () {
+        // check password matched
+        function checkPasswordMatch(){
+            var password = $("password").val();
+            var confirmPassword = $("confirm-password").val();
+
+            if(password != confirmPassword)
+                $("#error").html("Password mismatch!");
+            else
+                $("#error").html("");
+        }
+
+        // check password match when key up
+        $("password, #confirm-password").keyup(checkPasswordMatch);
+
+        // phone number input only
+        $("#phone").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [8]) !== -1 ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+        //AJAX register
+            $("#register").submit(function (event) {
+                event.preventDefault();
+                var username = $("#username").val();
+                var address = $("#address").val();
+                var email = $("#email").val();
+                var name = $("#name").val();
+                var password = $("#password").val();
+                var phone = $("#phone").val()
+                $.ajax({
+                    url: "account/register",
+                    async: false, //block until we get a response
+                    data: {username: username, address: address, email: email, name: name, password: password,
+                            phone: phone},
+                    success: function (response) {
+                            $("#error").html(response);
+                    }
+                });
+        });
+
+    });
+
+</script>
 <div class="header">
     <div class="container">
         <div class="w3l_login">
