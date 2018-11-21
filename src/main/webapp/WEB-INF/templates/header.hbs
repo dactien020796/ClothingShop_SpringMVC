@@ -126,14 +126,14 @@
         });
 
         //AJAX register
-            $("#register").submit(function (event) {
-                event.preventDefault();
-                var username = $("#username").val();
-                var address = $("#address").val();
-                var email = $("#email").val();
-                var name = $("#name").val();
-                var password = $("#password").val();
-                var phone = $("#phone").val()
+        $("#register").submit(function (event) {
+            event.preventDefault();
+            var username = $("#username").val();
+            var address = $("#address").val();
+            var email = $("#email").val();
+            var name = $("#name").val();
+            var password = $("#password").val();
+            var phone = $("#phone").val()
                 $.ajax({
                     url: "account/register",
                     async: false, //block until we get a response
