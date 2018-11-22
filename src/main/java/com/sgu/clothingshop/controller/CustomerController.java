@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/account")
@@ -27,6 +28,16 @@ public class CustomerController {
                            @RequestParam("phone") String phone,
                            HttpServletRequest request) {
         String temp = customerService.register(username, address, email, name, password, phone, request);
+        return temp;
+    }
+
+    // Sign In
+    @ResponseBody
+    @RequestMapping(value = "login", produces = "application/x-www-form-urlencoded;charset=UTF-8")
+    public String login(@RequestParam("customerEmail") String email,
+                        @RequestParam("customerPassword") String password,
+                        HttpSession httpSession) {
+        String temp = customerService.signIn(email, password, httpSession);
         return temp;
     }
 
