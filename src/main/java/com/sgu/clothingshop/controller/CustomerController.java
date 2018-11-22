@@ -1,11 +1,14 @@
 package com.sgu.clothingshop.controller;
 
+import com.sgu.clothingshop.model.Customer;
 import com.sgu.clothingshop.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,6 +42,14 @@ public class CustomerController {
                         HttpSession httpSession) {
         String temp = customerService.signIn(email, password, httpSession);
         return temp;
+    }
+
+    // Edit
+    @RequestMapping("edit")
+    public ModelAndView edit(ModelMap model, HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView("customer-detail");
+        modelAndView.addObject("customer", customerService.getSession(httpSession, model));
+        return modelAndView;
     }
 
 }

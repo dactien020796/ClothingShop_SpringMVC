@@ -4,6 +4,7 @@ import com.sgu.clothingshop.model.Customer;
 import com.sgu.clothingshop.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -74,6 +75,12 @@ public class CustomerService {
             e.printStackTrace();
         }
         return generatedPassword;
+    }
+
+    // Get customer
+    public Customer getSession(HttpSession httpSession, ModelMap model) {
+        Customer customer = (Customer) httpSession.getAttribute("customer");
+        return customer;
     }
 
 
