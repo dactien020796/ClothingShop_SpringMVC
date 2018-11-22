@@ -145,6 +145,25 @@
                 });
         });
 
+        $("#signIn").submit(function (event) {
+             event.preventDefault();
+             var customerEmail = $("#customerEmail").val();
+             var customerPassword = $("#customerPassword").val();
+             $.ajax({
+                 url: "account/login",
+                 async: false, //block until we get a response
+                 data: {customerEmail: customerEmail, customerPassword: customerPassword},
+                 success: function (response) {
+                 if (response == "Sign In Success") {
+                     $("#errorSignIn").html(response);
+                          setTimeout(function () {// wait for 3 secs(2)
+                               window.location.reload(); // then reload the page.(3)
+                          }, 3000);
+                 } else
+                     $("#errorSignIn").html(response);
+                 }
+             });
+         });
     });
 
 </script>
