@@ -51,5 +51,4 @@ public class CustomerController {
         modelAndView.addObject("customer", customerService.getSession(httpSession, model));
         return modelAndView;
     }
-
 }
