@@ -5,13 +5,12 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,12 +34,12 @@ public class Category {
     @Column(name = "isDeleted")
     private Boolean isDeleted;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "parent_category_id")
     private Category parentCategory;
 
-    @OneToOne(mappedBy = "parentCategory", fetch = FetchType.LAZY)
-    private Category childCategory;
+    @OneToMany(mappedBy = "parentCategory")
+    private List<Category> childCategory = new ArrayList<>();
 
     @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();

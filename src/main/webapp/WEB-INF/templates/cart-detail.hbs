@@ -1,0 +1,101 @@
+{{#> layouts/base }}
+    {{#*inline "content"}}
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Product Name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+            {{#each items}}
+                <tr>
+                    <td>{{product.name}}</td>
+                    <td>
+                        <img src="{{product.image1}}" style="width: auto; height: 200px"/>
+                    </td>
+                    <td>{{product.price}}</td>
+                    <td>{{size.size}}</td>
+                    <td>
+                        <input type="number" class="quantity" value="{{quantity}}"
+                               data-product-id="{{product.id}}" data-size-id="{{size.id}}"/>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-delete"
+                                data-product-id="{{product.id}}" data-size-id="{{size.id}}">
+                            x
+                        </button>
+                    </td>
+                </tr>
+            {{/each}}
+        </table>
+
+        <div style="float: right">
+            <h3><span style="color: red">Notional price: </span><span id="total">VND</span></h3>
+        </div>
+
+        <div class="clearfix"></div>
+
+        {{#if items}}
+            <a href="/check-out" class="btn btn-success" style="float: right; margin-top: 10px">Check-out</a>
+        {{/if}}
+
+        <script>
+            $(document).ready(function () {
+                showTotal();
+
+                $('.quantity').change(function () {
+                    var productId = $(this).data('product-id');
+                    var sizeId = $(this).data('size-id');
+                    var quantity = $(this).val();
+                    $.ajax({
+                        type: "GET",
+                        url: "/cart/update",
+                        data: {
+                            id: productId,
+                            sizeId: sizeId,
+                            qty: quantity
+                        },
+                        success: function (response) {
+                            alert("Cart updated");
+                            $('#simpleCart_quantity').html(response);
+                            showTotal();
+                        }
+                    });
+                });
+
+                $('.btn-delete').click(function () {
+                    var productId = $(this).data('product-id');
+                    var sizeId = $(this).data('size-id');
+                    $.ajax({
+                        type: "GET",
+                        url: "/cart/remove",
+                        data: {
+                            id: productId,
+                            sizeId: sizeId
+                        },
+                        success: function (response) {
+                            if(!alert(response)) {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
+
+                function showTotal() {
+                    $.ajax({
+                        type: "GET",
+                        url: "/cart/get-amount",
+                        success: function (response) {
+                            //alert(response[0]);
+                            $('#total').html(response);
+                        }
+                    });
+                }
+            });
+        </script>
+
+    {{/inline}}
+{{/layouts/base}}

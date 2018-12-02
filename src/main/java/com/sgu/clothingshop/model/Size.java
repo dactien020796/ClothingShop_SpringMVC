@@ -30,4 +30,7 @@ public class Size {
 
     @OneToMany(mappedBy = "size")
     private List<ProductSize> productSizes;
+
+    @OneToMany(mappedBy = "size")
+    private List<OrderDetail> orderDetails;
 }

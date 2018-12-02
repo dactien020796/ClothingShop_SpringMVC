@@ -1,5 +1,3 @@
-(function ($) {
-    $.fn.formatCurrency = function(money) {
-        return money.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
-    }
-})(jQuery);
+function calculatePrice(price, quantity) {
+    return price * quantity;
+}

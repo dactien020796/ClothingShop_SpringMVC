@@ -34,8 +34,17 @@ public class Order {
     @Temporal(TemporalType.DATE)
     private Date submittedDate;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "address")
     private String address;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
 
     @Column(name = "total")
     private Long total;

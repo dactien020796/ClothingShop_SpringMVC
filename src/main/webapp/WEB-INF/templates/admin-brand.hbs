@@ -1,0 +1,130 @@
+{{#> layouts/base-admin }}
+    {{#*inline "content"}}
+        <h3>Brand management</h3>
+
+        <button id="add-button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Add</button>
+
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form action="/action_page.php">
+                            <div class="form-group">
+                                <label for="id">ID:</label>
+                                <input class="form-control" id="id" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Brand name:</label>
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button id="btn-save" type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+            <colgroup>
+                <col span="1" style="width: 10%;">
+                <col span="1" style="width: 65%;">
+                <col span="1" style="width: 10%;">
+                <col span="1" style="width: 15%;">
+            </colgroup>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Is deleted</th>
+                <th></th>
+            </tr>
+            {{#each brands}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{name}}</td>
+                    <td>{{isDeleted}}</td>
+                    <td>
+                        <button class="btn btn-info edit-button" data-toggle="modal" data-target="#myModal"
+                                data-brand-id="{{id}}" data-brand-name="{{name}}">
+                            Edit
+                        </button>
+                        <button class="btn btn-danger delete-button"
+                                data-brand-id="{{id}}" data-brand-name="{{name}}">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            {{/each}}
+        </table>
+
+        <script>
+
+
+
+            $(document).ready(function () {
+
+                $('#add-button').click(function() {
+                    $('form')[0].reset();
+                });
+
+                $('.delete-button').click(function() {
+                    //get data-id attribute of the clicked element
+                    var id = $(this).data('brand-id');
+                    var name = $(this).data('brand-name');
+                    var result = confirm("Are you sure to delete brand " + name);
+                    if (result == true) {
+                        var brand = {};
+                        brand["id"] = id;
+                        brand["name"] = name;
+                        $.ajax({
+                            type: "POST",
+                            contentType: "application/json",
+                            url: "/admin/brands/delete",
+                            data: JSON.stringify(brand),
+                            dataType: 'json',
+                            success: function (data) {
+                                console.log(data);
+                                alert(data);
+                            }
+                        });
+                    }
+                });
+
+                $('.edit-button').click(function() {
+                    //get data-id attribute of the clicked element
+                    var id = $(this).data('brand-id');
+                    var name = $(this).data('brand-name');
+
+                    //populate the textbox
+                    $('#id').val(id);
+                    $('#name').val(name);
+                });
+
+                $("#btn-save").click(function() {
+                    var brand = {};
+                    brand["id"] = $("#id").val();
+                    brand["name"] = $("#name").val();
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/admin/brands",
+                        data: JSON.stringify(brand),
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            alert(data);
+                        }
+                    });
+                });
+            });
+        </script>
+    {{/inline}}
+{{/layouts/base-admin}}
