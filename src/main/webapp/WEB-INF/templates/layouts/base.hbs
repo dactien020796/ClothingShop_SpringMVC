@@ -49,8 +49,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     {{> header}}
 
     <div>
-        {{#> content}}
-        {{/content}}
+        <div class="dresses" style="padding-bottom: 0px">
+            <div class="container" style="width: 90%">
+                <div class="w3ls_dresses_grids">
+
+                    <div class="col-md-4 w3ls_dresses_grid_left">
+                        {{> filter-product}}
+                    </div>
+
+                    <div class="col-md-8 w3ls_dresses_grid_right">
+                        {{#> content}}
+                        {{/content}}
+                    </div>
+
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     {{> footer}}

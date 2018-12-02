@@ -38,4 +38,8 @@ public class OrderDetail {
     @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "sizeId")
+    private Size size;
 }

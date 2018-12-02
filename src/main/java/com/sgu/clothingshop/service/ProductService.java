@@ -40,4 +40,12 @@ public class ProductService implements BasicCrudService<Product, Long> {
     public Iterable<Product> getAllAvailabel() {
         return productRepository.findAllByIsDeleted(false);
     }
+
+    public Iterable<Product> findByBrand(Long brandId) {
+        return productRepository.findAllByBrandIdAndIsDeleted(brandId, false);
+    }
+
+    public Iterable<Product> findByCategory(Long categoryId) {
+        return productRepository.findAllByCategoryIdAndIsDeleted(categoryId, false);
+    }
 }

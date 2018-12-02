@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -64,4 +66,7 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private List<ProductSize> productSizes;
+
+    @Transient
+    private Integer quantity;
 }
