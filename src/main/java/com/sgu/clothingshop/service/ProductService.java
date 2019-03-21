@@ -48,4 +48,8 @@ public class ProductService implements BasicCrudService<Product, Long> {
     public Iterable<Product> findByCategory(Long categoryId) {
         return productRepository.findAllByCategoryIdAndIsDeleted(categoryId, false);
     }
+
+    public Iterable<Product> findByName(String name) {
+        return productRepository.findAllByNameContaining(name);
+    }
 }

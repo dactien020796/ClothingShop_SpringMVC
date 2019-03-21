@@ -53,11 +53,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="container" style="width: 90%">
                 <div class="w3ls_dresses_grids">
 
-                    <div class="col-md-4 w3ls_dresses_grid_left">
+                    <div class="col-md-3 w3ls_dresses_grid_left">
                         {{> filter-product}}
                     </div>
 
-                    <div class="col-md-8 w3ls_dresses_grid_right">
+                    <div class="col-md-9 w3ls_dresses_grid_right">
                         {{#> content}}
                         {{/content}}
                     </div>
@@ -69,5 +69,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 
     {{> footer}}
+    <script>
+        $(document).ready(function () {
+            showCartQuantity();
+        });
+    </script>
 </body>
 </html>

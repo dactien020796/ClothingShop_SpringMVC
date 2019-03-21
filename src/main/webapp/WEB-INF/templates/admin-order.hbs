@@ -1,0 +1,67 @@
+{{#> layouts/base-admin }}
+    {{#*inline "content"}}
+        <h3>Order management</h3>
+
+        <table id="order-table" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Customer name</th>
+                <th>Order date</th>
+                <th>Address</th>
+                <th>Phone number</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    {{/inline}}
+{{/layouts/base-admin}}
+
+<script>
+    var dataTable;
+    function createDataTable(response) {
+        dataTable = $("#order-table").DataTable({
+            data: response,
+            processing: true,
+            serverSide: false,
+            deferRender: true,
+            pageLength: 25,
+            columns: [
+                { data: "name"},
+                { data: "submittedDate" },
+                { data: "address" },
+                { data: "phoneNumber" },
+                { data: "total" },
+                {
+                    render: function(data, type, row) {
+                        return "<a href='#'>" + "Detail" + "</a>";
+                    }
+                }
+            ],
+        });
+    }
+
+    function loadData(dataTable) {
+        $.ajax({
+            type: "GET",
+            url: "/admin/orders/all",
+            success: function (response) {
+                if (dataTable) {
+                    dataTable.clear();
+                    dataTable.rows.add(response.data);
+                    dataTable.draw();
+                } else {
+                    createDataTable(response);
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+
+        // load data
+        loadData(dataTable);
+    });
+</script>

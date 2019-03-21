@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
+import static com.sgu.clothingshop.constant.SessionAttribute.SESSION_CUSTOMER;
+
 @Controller
 @RequestMapping("/check-out")
 public class CheckoutController {
@@ -33,6 +35,7 @@ public class CheckoutController {
     @GetMapping
     public ModelAndView checkOut(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("check-out");
+        modelAndView.addObject("customer", session.getAttribute(SESSION_CUSTOMER));
         modelAndView = calculateTotal(modelAndView, session);
         return modelAndView;
     }
@@ -52,7 +55,7 @@ public class CheckoutController {
         order.setPhoneNumber(phone);
         order.setTotal(total);
         order.setSubmittedDate(new Date());
-        order.setCustomer((Customer) session.getAttribute("customer"));
+        order.setCustomer((Customer) session.getAttribute(SESSION_CUSTOMER));
         try {
             orderService.purchase(order, shoppingCartService.getItems());
             shoppingCartService.clear(session);
@@ -66,15 +69,15 @@ public class CheckoutController {
     public ModelAndView calculateTotal(ModelAndView modelAndView, HttpSession session) {
         Integer notionalPrice = shoppingCartService.getAmount();
         Integer discountPercent = 0;
-        Long discount = Long.valueOf(0);
+        Long discount = 0L;
         Long total = Long.valueOf(shoppingCartService.getAmount());
-        Customer customer = (Customer) session.getAttribute("customer");
+        Customer customer = (Customer) session.getAttribute(SESSION_CUSTOMER);
         if (customer != null && customer.getIsVIP()) {
             discountPercent = configurationService.getVipPercentDiscount();
         }
 
         if (discountPercent != 0) {
-            discount = Long.valueOf(notionalPrice * (discountPercent / 100));
+            discount = Double.valueOf(notionalPrice * (discountPercent / 100.0)).longValue();
         }
 
         if (discount != 0) {

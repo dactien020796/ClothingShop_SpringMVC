@@ -1,0 +1,75 @@
+{{#> layouts/base-admin }}
+    {{#*inline "content"}}
+        <!--<h3>Revenue By Month</h3>-->
+
+        <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "admin/revenue/by-month",
+                    success: function (data) {
+                        var object = new Array(30);
+                        for(i=0; i< object.length; i++) {
+                            object[i] = ["a",     0];
+                        }
+
+                        for(i=0; i< data.length; i++) {
+                            var ten = "" + data[i][0];
+                            var so = data[i][1];
+                            object[i] = [ten,     so];
+                        }
+
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        function drawChart() {
+                            var data = google.visualization.arrayToDataTable([
+                                ['Month', 'Revenue'],
+                                //temp
+                                object[0],
+                                object[1],
+                                object[2],
+                                object[3],
+                                object[4],
+                                object[5],
+                                object[6],
+                                object[7],
+                                object[8],
+                                object[9],
+                                object[10],
+                                object[11],
+                                object[12],
+                                object[13],
+                                object[14],
+                                object[15],
+                                object[16],
+                                object[17],
+                                object[18],
+                                object[19],
+                                object[20],
+                                object[21],
+                                object[22],
+                                object[23],
+                                object[24],
+                                object[25],
+                                object[26],
+                                object[27],
+                                object[28],
+                                object[29],
+                            ]);
+                            var options = {
+                                title: 'Revenue by month'
+                            };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                            chart.draw(data, options);
+                        }
+                    }
+                });
+            });
+        </script>
+    {{/inline}}
+{{/layouts/base-admin}}

@@ -1,40 +1,47 @@
 {{#> layouts/base }}
     {{#*inline "content"}}
-        <div class="col-md-5 modal_body_left">
-            <img src="{{product.image1}}" alt=" " class="img-responsive" />
-        </div>
-        <div class="col-md-7 modal_body_right">
-            <h4>{{product.name}}</h4>
-            <div class="modal_body_right_cart simpleCart_shelfItem">
-                <p>
-                    <i class="item_price">
-                        {{product.price}} VND
-                    </i>
-                </p>
+        <div class="new-products" style="padding-top: 0; background-color: white">
+            <div class="container" style="width: 100%">
+                <h3 id="title">{{title}}</h3>
+                <div class="agileinfo_new_products_grids" id="product-info">
+                    <div class="col-md-5 modal_body_left">
+                        <img src="{{product.image1}}" alt=" " class="img-responsive" />
+                    </div>
+                    <div class="col-md-7 modal_body_right">
+                        <h4>{{product.name}}</h4>
+                        <div class="modal_body_right_cart simpleCart_shelfItem">
+                            <p>
+                                <i class="item_price">
+                                    {{product.price}} VND
+                                </i>
+                            </p>
 
-            </div>
+                        </div>
 
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <h5 style="margin-top: 3px; margin-left: 0;">Brand</h5>
+                        <div class="form-group row">
+                            <div class="col-md-2">
+                                <h5 style="margin-top: 3px; margin-left: 0;">Brand</h5>
+                            </div>
+                            <div class="col-sm-10">
+                                <a href="/products/by-brand?brandId={{product.brand.id}}">{{product.brand.name}}</a>
+                            </div>
+                        </div>
+
+                        <h5 style="margin-top: 10px; margin-bottom: 5px">Size</h5>
+                        <select class="form-control" id="size" name="size" required>
+                            {{#each sizes}}
+                                <option value="{{id}}">{{size}}</option>
+                            {{/each}}
+                        </select>
+
+                        <h5 style="margin-top: 20px; margin-bottom: 5px">Quantity</h5>
+                        <input type="number" value="1" class="form-control" id="quantity" name="quantity" required>
+
+                        <br />
+                        <button class="btn btn-primary" id="add-to-cart" data-cart-add="{{product.id}}">Add to cart</button>
+                    </div>
                 </div>
-                <div class="col-sm-10">
-                    <a href="#">Brand 1</a>
-                </div>
             </div>
-
-            <h5 style="margin-top: 10px; margin-bottom: 5px">Size</h5>
-            <select class="form-control" id="size" name="size" required>
-                {{#each sizes}}
-                    <option value="{{id}}">{{size}}</option>
-                {{/each}}
-            </select>
-
-            <h5 style="margin-top: 20px; margin-bottom: 5px">Quantity</h5>
-            <input type="number" value="1" class="form-control" id="quantity" name="quantity" required>
-
-            <br />
-            <button class="btn btn-primary" id="add-to-cart" data-cart-add="{{product.id}}">Add to cart</button>
         </div>
         <div class="clearfix"> </div>
 
@@ -113,7 +120,7 @@
                         success: function (response) {
                             //alert(response[0]);
                             alert("Added to cart");
-                            $('#simpleCart_quantity').html(response);
+                            $('#cart_quantity').html(response);
                         }
                     });
                 });

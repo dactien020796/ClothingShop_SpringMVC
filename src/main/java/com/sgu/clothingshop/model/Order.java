@@ -1,5 +1,6 @@
 package com.sgu.clothingshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ import java.util.List;
  *
  * @author Tien Le
  */
-@Entity(name = "\"Order\"")
+@Entity(name = "Order_tbl")
 @Getter
 @Setter
 public class Order {
@@ -52,10 +53,12 @@ public class Order {
     @Column(name = "description")
     private String description;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customerId")
     private Customer customer;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
 }

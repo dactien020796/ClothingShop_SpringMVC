@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.sgu.clothingshop.constant.SessionAttribute.SESSION_CART;
+
 @Service
 public class ShoppingCartService {
 
@@ -21,10 +23,10 @@ public class ShoppingCartService {
     private List<Item> cart = new ArrayList<>();
 
     public void add(Long id, Long sizeId, Integer qty, HttpSession session) {
-        if (session.getAttribute("cart") == null) {
+        if (session.getAttribute(SESSION_CART) == null) {
             cart.add(new Item(productService.get(id), sizeService.get(sizeId), qty));
         } else {
-            cart = (List<Item>) session.getAttribute("cart");
+            cart = (List<Item>) session.getAttribute(SESSION_CART);
             int index = isExisting(id, sizeId);
             if (index == -1)
                 cart.add(new Item(productService.get(id), sizeService.get(sizeId), qty));
@@ -33,14 +35,14 @@ public class ShoppingCartService {
                 cart.get(index).setQuantity(quantity);
             }
         }
-        session.setAttribute("cart", cart);
+        session.setAttribute(SESSION_CART, cart);
     }
 
     public void update(Long id, Long sizeId, Integer newQuantity, HttpSession session) {
         int index = isExisting(id, sizeId);
         if (index != -1) {
             cart.get(index).setQuantity(newQuantity);
-            session.setAttribute("cart", cart);
+            session.setAttribute(SESSION_CART, cart);
         }
     }
 
@@ -49,12 +51,12 @@ public class ShoppingCartService {
         if (index != -1) {
             cart.remove(index);
         }
-        session.setAttribute("cart", cart);
+        session.setAttribute(SESSION_CART, cart);
     }
 
     public void clear(HttpSession session) {
         cart.clear();
-        session.setAttribute("cart", null);
+        session.setAttribute(SESSION_CART, null);
     }
 
     public Collection<Item> getItems() {

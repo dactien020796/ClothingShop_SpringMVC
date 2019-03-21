@@ -4,11 +4,13 @@ import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.Options;
 import com.github.jknack.handlebars.springmvc.HandlebarsViewResolver;
 import com.sgu.clothingshop.configuration.HandlebarsConfiguration;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 
+import javax.persistence.EntityManagerFactory;
 import java.io.IOException;
 
 /**

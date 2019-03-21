@@ -1,13 +1,13 @@
 {{#> layouts/base }}
     {{#*inline "content"}}
         <!-- new-products -->
-        <div class="new-products">
-            <div class="container">
-                <h3>New Products</h3>
-                <div class="agileinfo_new_products_grids">
+        <div class="new-products" style="padding-top: 0; background-color: white">
+            <div class="container" style="width: 100%">
+                <h3>{{title}}</h3>
+                <div class="agileinfo_new_products_grids" id="product-info">
 
                     {{#each products}}
-                    <div class="col-md-3 agileinfo_new_products_grid">
+                    <div class="col-md-4 agileinfo_new_products_grid">
                         <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
                             <div class="hs-wrapper hs-wrapper1">
                                 <img src="{{image1}}" alt=" " class="img-responsive" />
@@ -15,14 +15,13 @@
                                 <img src="{{image3}}" alt=" " class="img-responsive" />
                                 <img src="{{image4}}" alt=" " class="img-responsive" />
                             </div>
-                            <h5><a href="products/{{id}}">{{name}}</a></h5>
+                            <h5><a href="/products/{{id}}">{{name}}</a></h5>
                             <div class="simpleCart_shelfItem">
                                 <p>
                                     <i class="item_price">
                                         {{price}} VND
                                     </i>
                                 </p>
-                                <p><a class="item_add" href="#">Add to cart</a></p>
                             </div>
                         </div>
                     </div>

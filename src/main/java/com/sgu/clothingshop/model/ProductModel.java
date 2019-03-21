@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class ProductModel {
@@ -21,4 +23,6 @@ public class ProductModel {
     private Long category;
 
     private Long brand;
+
+    //private List<Long> size;
 }

@@ -1,0 +1,58 @@
+{{#> layouts/base }}
+    {{#*inline "content"}}
+        <div class="container">
+            <div class="row">
+                <br>
+                <h3>My Account</h3>
+                <div style="margin-top: 5px; font-size: 15px">
+                    Manage your personal profile to secured your account
+                </div>
+                <hr>
+                <div class="col-md-10">
+                    <form id="edit" action="account/edit">
+                        <table class="table">
+                            <tr>
+                                <td class="text-right">Name</td>
+                                <td>
+                                    <input path="name" type="text" cssClass="form-control" value="{{customer.name}}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">Username</td>
+                                <td>
+                                    <input path="username" type="text" cssClass="form-control" value="{{customer.username}}" />
+                                    <hidden path="id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">Email</td>
+                                <td>
+                                    <input path="email" type="email" cssClass="form-control"  disabled value="{{customer.email}}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">Phone number</td>
+                                <td>
+                                    <input path="phone" type="text" cssClass="form-control" maxlength="11" minLength="10" value="{{customer.phoneNumber}}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">Address</td>
+                                <td>
+                                    <input path="address" type="text" cssClass="form-control" value="{{customer.address}}" />
+                                    <span style="color: red"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right"></td>
+                                <td>
+                                    <button type="submit" class="btn btn-danger">Edit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {{/inline}}
+{{/layouts/base}}

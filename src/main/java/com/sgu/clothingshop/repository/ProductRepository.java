@@ -10,4 +10,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Iterable<Product> findAllByBrandIdAndIsDeleted(Long brandId, Boolean isDelete);
 
     Iterable<Product> findAllByCategoryIdAndIsDeleted(Long categoryId, Boolean isDelete);
+
+    Iterable<Product> findAllByNameContaining(String name);
 }

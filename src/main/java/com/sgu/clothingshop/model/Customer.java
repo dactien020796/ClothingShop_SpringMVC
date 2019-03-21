@@ -39,7 +39,7 @@ public class Customer {
     private String phoneNumber;
 
     @Column(name = "isVIP")
-    private Boolean isVIP;
+    private Boolean isVIP = false;
 
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;

@@ -1,5 +1,6 @@
 package com.sgu.clothingshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,19 +52,23 @@ public class Product {
     private String image4;
 
     @Column(name = "isDeleted")
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "brandId")
     private Brand brand;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<OrderDetail> orderDetails;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<ProductSize> productSizes;
 

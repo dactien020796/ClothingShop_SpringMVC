@@ -5,6 +5,7 @@ import com.sgu.clothingshop.model.ProductModel;
 import com.sgu.clothingshop.service.BrandService;
 import com.sgu.clothingshop.service.CategoryService;
 import com.sgu.clothingshop.service.ProductService;
+import com.sgu.clothingshop.service.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,6 +76,7 @@ public class ProductManagementController {
         product.setPrice(productModel.getPrice());
         product.setBrand(brandService.get(productModel.getBrand()));
         product.setCategory(categoryService.get(productModel.getCategory()));
+        product.setIsDeleted(false);
         return product;
     }
 

@@ -18,6 +18,7 @@ public class HomeController {
     private ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("products", productService.getAllAvailabel());
+        modelAndView.addObject("title", "New Products");
         return modelAndView;
     }
 }

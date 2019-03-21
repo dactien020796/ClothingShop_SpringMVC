@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
+import static com.sgu.clothingshop.constant.SessionAttribute.SESSION_CART;
+
 @Controller
 @RequestMapping("/cart")
 public class ShoppingCartController {
@@ -60,10 +62,16 @@ public class ShoppingCartController {
         return shoppingCartService.getAmount();
     }
 
+    @ResponseBody
+    @GetMapping("get-count")
+    public int getCount() {
+        return shoppingCartService.getCount();
+    }
+
     @GetMapping("view")
     public ModelAndView viewCart(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("cart-detail");
-        modelAndView.addObject("items", session.getAttribute("cart"));
+        modelAndView.addObject("items", session.getAttribute(SESSION_CART));
         return modelAndView;
     }
 }
